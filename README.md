@@ -1,0 +1,2 @@
+# saferschool
+make school safer
