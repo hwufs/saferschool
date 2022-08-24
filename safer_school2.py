@@ -12,7 +12,7 @@ import os
 import pygame
 from pygame import mixer
 import pygame_widgets
-from pygame_widgets.button import Button, ButtonArray
+from pygame_widgets.button import Button
 
 pygame.font.init()
 
@@ -44,7 +44,6 @@ global bully_icon_x, bully_icon_y
 global internet_icon_x, internet_icon_y
 global gunshooting_icon_x, gunshooting_icon_y
 
-
 def load_sprite(folder_name, image_name, xsize, ysize):
     ''' Load and resize a sprite '''
     
@@ -53,7 +52,8 @@ def load_sprite(folder_name, image_name, xsize, ysize):
     return sprite
 
 def load_main_window_sprites():
-
+    '''load main window sprites '''
+    
     global background
     global earthquake_icon, fire_icon, bully_icon, internet_icon, gunshooting_icon    
     global earthquake_icon_x, earthquake_icon_y
@@ -61,7 +61,6 @@ def load_main_window_sprites():
     global bully_icon_x, bully_icon_y
     global internet_icon_x, internet_icon_y
     global gunshooting_icon_x, gunshooting_icon_y
-
  
     background = load_sprite('Assets','school_background.jpg', WIDTH, int(HEIGHT/2))   
     earthquake_icon = load_sprite('Assets','earthquake_icon2.jpg', 110,140)
@@ -83,6 +82,7 @@ def load_main_window_sprites():
     gunshooting_icon_y = 600    
     
 def load_control_button_sprites():
+    ''' load control button sprites, including ->, <-, and return '''
     
     global prev_question, next_question, return_to_main
     global prev_question_x, prev_question_y
@@ -119,65 +119,32 @@ def draw_main_window():
     pygame.display.update()
 
 def draw_control_buttons():
+    ''' draw control buttons, including ->, <-, and return '''
     
     WIN.blit(prev_question, (prev_question_x, prev_question_y))
     WIN.blit(next_question, (next_question_x, next_question_y))
     WIN.blit(return_to_main, (return_x, return_y))
     
 def set_main_state():
+    ''' set game state to be main so the we can return to the main window '''
     global game_state
     game_state = "main"
     
 def set_new_question():
+    ''' set new question state '''
     global new_question
     new_question = True
   
 def action():
     pass
           
-#def draw_control_buttons():
-#    
-#    # Creates the return button with optional parameters
-#    button1 = Button(
-#        # Mandatory Parameters
-#        WIN,  # Surface to place button on
-#        630,  # X-coordinate of top left corner
-#        20,  # Y-coordinate of top left corner
-#        50,  # Width
-#        50,  # Height
-#    
-#        # Optional Parameters
-#        text='<',  # Text to display
-#        fontSize=50,  # Size of font
-#        margin=20,  # Minimum distance between text/image and edge of button
-#        inactiveColour=SILVER,  # Colour of button when not being interacted with
-#        hoverColour=GREY,  # Colour of button when being hovered over
-#        pressedColour=GREEN,  # Colour of button when being clicked        
-#        radius=20,  # Radius of border corners (leave empty for not curved)
-#        onClick=lambda: set_main_state()  # Function to call when clicked on
-#    )
-#    
-#    # Creates the 'next' button with optional parameters
-#    button2 = Button(
-#        # Mandatory Parameters
-#        WIN,  # Surface to place button on
-#        700,  # X-coordinate of top left corner
-#        20,  # Y-coordinate of top left corner
-#        50,  # Width
-#        50,  # Height
-#    
-#        # Optional Parameters
-#        text='>',  # Text to display
-#        fontSize=50,  # Size of font
-#        margin=20,  # Minimum distance between text/image and edge of button
-#        inactiveColour=SILVER,  # Colour of button when not being interacted with
-#        hoverColour=GREY,  # Colour of button when being hovered over
-#        pressedColour=GREEN,  # Colour of button when being clicked        
-#        radius=20,  # Radius of border corners (leave empty for not curved)
-#        onClick=lambda: set_new_question()  # Function to call when clicked on
-#    )        
  
 def draw_answer_buttons(answer1, answer2, answer3, answer4):
+    ''' 
+    Draw answer buttons. The texts of the four buttons are specified by 
+    answer1, answer2, answer3, answer4
+    '''
+    
     # create answer buttons
     button_width = 250
     button_height = 80
@@ -268,6 +235,7 @@ def draw_answer_buttons(answer1, answer2, answer3, answer4):
 
 
 def first_bully_question():
+    ''' Display the first question on bully '''
     
     global new_question
     new_question = False # it will change to True when > button is clicked
@@ -280,10 +248,12 @@ def first_bully_question():
     question_text = BIN_FONT.render('What will you do?', 1, BLACK)
     WIN.blit(question_text, (100, 450))
 
-    draw_answer_buttons('Tell a Trusted Individual', 'Fight back', 'Ignore Them', '' )
+    draw_answer_buttons('Tell someone', 'Fight back', 'Ignore', 'Change school' )
     draw_control_buttons() # draw < (previous) and > (next) buttons
 
+
 def second_bully_question():
+    ''' Display the second question on bully '''
     
     global new_question
     new_question = False # it will change to True when > button is clicked
@@ -300,83 +270,54 @@ def second_bully_question():
     draw_control_buttons() # draw < (previous) and > (next) buttons
     
 
+def bully_questions(question_id):
+    ''' choose bully quesitons '''
+    if question_id == 1:
+        first_bully_question()
+    elif question_id == 2:
+        second_bully_question()
 
-#def bully():
-#    global game_state
-#    game_state = "bully"
-#    
-#    first_bully_question()        
-# 
-#    run = True        
-#    while run:        
-#        
-#        if game_state == 'main':
-#            run = False
-#        else:   
-#            if new_question:
-#                second_bully_question()
-#            else:
-##            draw_control_buttons() # draw < (previous) and > (next) buttons
-#
-#                events = pygame.event.get()       
-#                print(events)
-#                for event in events:
-#                    # need to click a return button
-#                    
-#                    if event.type == pygame.QUIT:
-#                        run = False            
-#                        pygame.quit() 
-#                print(game_state)            
-#                print(game_state == 'main')
-#    
-#            pygame_widgets.update(events)  # Call once every loop to allow widgets to render and listen
-#            pygame.display.update()
-            
-            
-     
 def bully():
+    ''' Bully module '''
+    
     global game_state
     game_state = "bully"
-    question_state = 'first question'
     
-    first_bully_question()
+    question_number = 4 # total number of questions
+    question_id = 1 # 'first question'
     
-    run = True        
+    bully_questions(question_id)
+    run = True  
+      
     while run: 
-        
-        if game_state == 'main':
-            run = False
-            break
-        
-        elif question_state == 'first question':
-            first_bully_question()    
-            
-        elif question_state == 'second question':
-             second_bully_question()
+        print(run)
                       
         events = pygame.event.get()       
-        for event in events:
-            # need to click a return button
-            
+        for event in events:            
             if event.type == pygame.QUIT:
                 run = False            
                 pygame.quit() 
 
-            elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
+            elif event.type == pygame.MOUSEBUTTONDOWN: 
+                
                 if event.button == 1:
                     mx, my = event.pos
                     
-                    if prev_question.get_rect().collidepoint(mx-prev_question_x, my-prev_question_y):
-                        if question_state == 'second question':
-                            question_state = 'first question'
-                    elif next_question.get_rect().collidepoint(mx-next_question_x, my-next_question_y):
-                        if question_state == 'first question':
-                            question_state = 'second question'
+                    if prev_question.get_rect().collidepoint(mx-prev_question_x, my-prev_question_y): # press the <- button
+                        if question_id > 1:
+                            question_id -= 1 # previous question 
+                            bully_questions(question_id)
+                    elif next_question.get_rect().collidepoint(mx-next_question_x, my-next_question_y): # press the -> button
+                        if question_id < question_number: # not the last question
+                            question_id += 1 # next question
+                            bully_questions(question_id)
                     elif return_to_main.get_rect().collidepoint(mx-return_x, my-return_y):
                         game_state = 'main' 
-                                        
-            pygame_widgets.update(events)  # Call once every loop to allow widgets to render and listen
-            pygame.display.update()
+                        run = False
+                        break
+        
+        pygame_widgets.update(events)  # Call once every loop to allow widgets to render and listen
+        pygame.display.update()
 
                         
     return
@@ -398,23 +339,20 @@ def earthquake():
 
     run = True        
     while run:
-        if game_state == 'main':
-            run = False
-        else:       
-            events = pygame.event.get()       
-#            print(events)
-            for event in events:
-                # need to click a return button
-                
-                if event.type == pygame.QUIT:
-                    run = False            
-                    pygame.quit() 
-                elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
-                    if event.button == 1:
-                        mx, my = event.pos
-                        if return_to_main.get_rect().collidepoint(mx-return_x, my-return_y):
-                            game_state = 'main' 
-                                        
+        events = pygame.event.get()       
+        for event in events:
+            # need to click a return button
+            
+            if event.type == pygame.QUIT:
+                run = False            
+                pygame.quit() 
+            elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
+                if event.button == 1:
+                    mx, my = event.pos
+                    if return_to_main.get_rect().collidepoint(mx-return_x, my-return_y):
+                        game_state = 'main'
+                        run = False
+                        break
         pygame.display.update()
     
     return
@@ -435,25 +373,23 @@ def fire():
     
     run = True        
     while run:
-        if game_state == 'main':
-            run = False
-        else:       
-            events = pygame.event.get()       
-            print(events)
-            for event in events:
-                # need to click a return button
-                
-                if event.type == pygame.QUIT:
-                    run = False            
-                    pygame.quit() 
-                elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
-                    if event.button == 1:
-                        mx, my = event.pos
-                        if return_to_main.get_rect().collidepoint(mx-return_x, my-return_y):
-                            game_state = 'main' 
-                            run = False
+        events = pygame.event.get()       
+        print(events)
+        for event in events:
+            # need to click a return button
+            
+            if event.type == pygame.QUIT:
+                run = False            
+                pygame.quit() 
+            elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
+                if event.button == 1:
+                    mx, my = event.pos
+                    if return_to_main.get_rect().collidepoint(mx-return_x, my-return_y):
+                        game_state = 'main' 
+                        run = False
+                        break
 
-            pygame.display.update()
+        pygame.display.update()
     
     return
 
@@ -493,8 +429,6 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN: # pick up the trash
                 if event.button == 1:
                     mx, my = event.pos
-#                    print(mx, my)
-#                    print(earthquake_icon.get_rect())
                     
                     if earthquake_icon.get_rect().collidepoint(mx-earthquake_icon_x, my-earthquake_icon_y):
                         earthquake()
