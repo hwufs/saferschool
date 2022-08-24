@@ -44,37 +44,6 @@ global bully_icon_x, bully_icon_y
 global internet_icon_x, internet_icon_y
 global gunshooting_icon_x, gunshooting_icon_y
 
-## background of main and other windows
-#BACKGROUND = pygame.image.load((os.path.join('Assets','school2.jpg'))) 
-#BACKGROUND = pygame.transform.scale(BACKGROUND, (WIDTH, HEIGHT))
-#
-
-
-## define earthquake, fire, bully, internet, gun shooting icons (surface object)
-#EARTHQUAKE = pygame.image.load(os.path.join('Assets','earthquake2.png'))
-#EARTHQUAKE = pygame.transform.scale(EARTHQUAKE, (125,140))
-#EARTHQUAKE_X_ORI = 100 # location
-#EARTHQUAKE_Y_ORI = 600
-##
-#FIRE = pygame.image.load(os.path.join('Assets','fire.png'))
-#FIRE = pygame.transform.scale(FIRE, (110,150))
-#FIRE_X_ORI = 220
-#FIRE_Y_ORI = 600
-#
-#BULLY = pygame.image.load(os.path.join('Assets','bully.png'))
-#BULLY = pygame.transform.scale(BULLY, (110,153))
-#BULLY_X_ORI = 340
-#BULLY_Y_ORI = 600 
-#
-#INTERNET = pygame.image.load(os.path.join('Assets','internet.jpg'))
-#INTERNET = pygame.transform.scale(INTERNET, (110,153))
-#INTERNET_X_ORI = 460
-#INTERNET_Y_ORI = 600
-#
-#GUN_SHOOTING = pygame.image.load(os.path.join('Assets','gun_shooting.png'))
-#GUN_SHOOTING = pygame.transform.scale(GUN_SHOOTING, (110,153))
-#GUN_SHOOTING_X_ORI = 580
-#GUN_SHOOTING_Y_ORI = 600
 
 def load_sprite(folder_name, image_name, xsize, ysize):
     ''' Load and resize a sprite '''
@@ -92,13 +61,7 @@ def load_main_window_sprites():
     global bully_icon_x, bully_icon_y
     global internet_icon_x, internet_icon_y
     global gunshooting_icon_x, gunshooting_icon_y
-    
-#    background = load_sprite('Assets','school_background.jpg', WIDTH, int(HEIGHT/2))   
-#    earthquake_icon = load_sprite('Assets','earthquake_icon2.jpg', 125,140)
-#    fire_icon = load_sprite('Assets','fire.png', 110, 150)
-#    bully_icon = load_sprite('Assets','bully.png', 110, 153)
-#    internet_icon = load_sprite('Assets','internet2.jpg', 110,153)
-#    gunshooting_icon = load_sprite('Assets','gun_shooting.png', 110,153)
+
  
     background = load_sprite('Assets','school_background.jpg', WIDTH, int(HEIGHT/2))   
     earthquake_icon = load_sprite('Assets','earthquake_icon2.jpg', 110,140)
